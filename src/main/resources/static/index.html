@@ -7,7 +7,7 @@
     <style>
         body { font-family: Arial, sans-serif; margin: 20px; }
         h2 { color: #333; }
-        textarea { width: 100%; height: 100px; margin-bottom: 10px; padding: 10px; }
+        textarea { width: 100%; height: 150px; margin-bottom: 10px; padding: 10px; }
         input[type="file"] { margin-bottom: 10px; }
         button { padding: 10px 15px; background-color: #4CAF50; color: white; border: none; cursor: pointer; }
         button:hover { background-color: #45a049; }
@@ -25,13 +25,17 @@
 
 <h2>Decrypt Data</h2>
 <form id="decryptForm">
-    <textarea id="encryptedMessage" placeholder="encryptedMessage"></textarea><br>
+    <textarea id="encryptedMessage" placeholder="Encrypted message"></textarea><br>
     <input type="file" id="privateKeyFile" accept=".pem, .priv, .txt" /><br>
     <button type="submit">Decrypt</button>
 </form>
 
 <h3>Result</h3>
 <pre id="result"></pre>
+
+<h3>Decrypted Result</h3>
+<textarea id="decryptedTitle" readonly placeholder="Decrypted title will appear here..."></textarea><br>
+<textarea id="decryptedContent" readonly placeholder="Decrypted content will appear here..."></textarea>
 
 <script>
     // Handle form submission for encryption
@@ -61,6 +65,8 @@
             if (response.ok) {
                 const encryptedData = await response.json();
                 document.getElementById('result').textContent = JSON.stringify(encryptedData, null, 2);
+                document.getElementById('decryptedTitle').value = encryptedData.title;
+                document.getElementById('decryptedContent').value = encryptedData.content;
             } else {
                 const errorData = await response.text();
                 alert('Encryption failed: ' + errorData);
@@ -96,6 +102,8 @@
             if (response.ok) {
                 const decryptedData = await response.json();
                 document.getElementById('result').textContent = JSON.stringify(decryptedData, null, 2);
+                document.getElementById('decryptedTitle').value = decryptedData.title || '';
+                document.getElementById('decryptedContent').value = decryptedData.content || '';
             } else {
                 const errorData = await response.text();
                 alert('Decryption failed: ' + errorData);
