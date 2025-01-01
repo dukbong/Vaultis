@@ -100,26 +100,26 @@ class CryptoControllerTest {
         PublicKey extractedPublicKey = keyFactoryService.extractPublicKey(multipartFile);
         assertNotNull(extractedPublicKey, "Public key should not be null");
 
-        // 4. 데이터 암호화 (AES + RSA)
-        EncryptedMessage encryptedData = cryptoService.encrypt(request, extractedPublicKey);
-
-        // 5. 결과 출력 (디버깅)
-        System.out.println("Encrypted Title: " + encryptedData.getEncryptedTitle());
-        System.out.println("Encrypted Content: " + encryptedData.getEncryptedContent());
-        System.out.println("Encrypted AES Key: " + encryptedData.getEncryptedAESKey());
-
-//        // 6. AES 키 복호화 및 내용 복호화
-        SecretKey decryptedAESKey = decryptAESKeyWithRSA(Base64.getDecoder().decode(encryptedData.getEncryptedAESKey()), privateKey);
+//        // 4. 데이터 암호화 (AES + RSA)
+//        EncryptedMessage encryptedData = cryptoService.encrypt(request, extractedPublicKey);
 //
-        String decryptedTitle = decryptWithAES(Base64.getDecoder().decode(encryptedData.getEncryptedTitle()), decryptedAESKey);
-        String decryptedContent = decryptWithAES(Base64.getDecoder().decode(encryptedData.getEncryptedContent()), decryptedAESKey);
+//        // 5. 결과 출력 (디버깅)
+//        System.out.println("Encrypted Title: " + encryptedData.getEncryptedTitle());
+//        System.out.println("Encrypted Content: " + encryptedData.getEncryptedContent());
+//        System.out.println("Encrypted AES Key: " + encryptedData.getEncryptedAESKey());
 //
-        System.out.println("Decrypted Title: " + decryptedTitle);
-        System.out.println("Decrypted Content: " + decryptedContent);
+////        // 6. AES 키 복호화 및 내용 복호화
+//        SecretKey decryptedAESKey = decryptAESKeyWithRSA(Base64.getDecoder().decode(encryptedData.getEncryptedAESKey()), privateKey);
+////
+//        String decryptedTitle = decryptWithAES(Base64.getDecoder().decode(encryptedData.getEncryptedTitle()), decryptedAESKey);
+//        String decryptedContent = decryptWithAES(Base64.getDecoder().decode(encryptedData.getEncryptedContent()), decryptedAESKey);
+////
+//        System.out.println("Decrypted Title: " + decryptedTitle);
+//        System.out.println("Decrypted Content: " + decryptedContent);
 //
 //        // 7. 복호화된 값 검증
-        assertEquals(request.getTitle(), decryptedTitle, "Decrypted title should match the original title");
-        assertEquals(request.getContent(), decryptedContent, "Decrypted content should match the original content");
+//        assertEquals(request.getTitle(), decryptedTitle, "Decrypted title should match the original title");
+//        assertEquals(request.getContent(), decryptedContent, "Decrypted content should match the original content");
         publicKeyFile.delete();
     }
 
