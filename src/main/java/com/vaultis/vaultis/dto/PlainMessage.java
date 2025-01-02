@@ -8,8 +8,5 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class PlainMessage {
-
-    private String title;
     private String content;
-
 }

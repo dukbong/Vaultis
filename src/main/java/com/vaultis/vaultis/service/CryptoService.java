@@ -1,7 +1,7 @@
 package com.vaultis.vaultis.service;
 
 import com.vaultis.vaultis.dto.EncryptedMessage;
-import com.vaultis.vaultis.dto.EncryptedResponse;
+import com.vaultis.vaultis.dto.EncryptedMessageStruct;
 import com.vaultis.vaultis.dto.PlainMessage;
 import com.vaultis.vaultis.exception.EncryptionException;
 import org.springframework.stereotype.Service;
@@ -23,17 +23,16 @@ public class CryptoService {
     private static final int AES_KEY_SIZE = 256;
     private static final int IV_SIZE = 16;
 
-    public EncryptedResponse<String> encrypt(PlainMessage plainMessage, PublicKey publicKey) {
+    public EncryptedMessage encrypt(PlainMessage plainMessage, PublicKey publicKey) {
         try {
             SecretKey aesKey = generateAESKey();
             IvParameterSpec iv = generateRandomIV();
 
-            String encryptedTitle = encryptWithAES(plainMessage.getTitle(), aesKey, iv);
             String encryptedContent = encryptWithAES(plainMessage.getContent(), aesKey, iv);
             String encryptedAESKey = encryptAESKey(aesKey, publicKey);
             String ivBase64 = Base64.getEncoder().encodeToString(iv.getIV());
-            EncryptedMessage encryptedMessage = new EncryptedMessage(encryptedTitle, encryptedContent, encryptedAESKey, ivBase64);
-            return new EncryptedResponse<>(encryptedMessage.toString());
+            EncryptedMessageStruct encryptedMessage = new EncryptedMessageStruct(encryptedContent, encryptedAESKey, ivBase64);
+            return new EncryptedMessage(encryptedMessage.toString());
         } catch (Exception e) {
             throw new EncryptionException("암호화 작업이 실패하였습니다.", e);
         }

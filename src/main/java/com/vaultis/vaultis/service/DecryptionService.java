@@ -24,14 +24,13 @@ public class DecryptionService {
     public PlainMessage decryption(String encryptedMessage, PrivateKey privateKey) {
         try {
             String[] encryptedArr = encryptedMessage.split("\\.");
-            if(encryptedArr.length != 4) {
+            if(encryptedArr.length != 3) {
                 throw new DecryptionException("복호화를 위한 필수 데이터가 부족합니다.", new IllegalArgumentException());
             }
             SecretKey aesKey = decryptAESKey(encryptedArr[0], privateKey);
             IvParameterSpec iv = new IvParameterSpec(Base64.getDecoder().decode(removeWhitespace(encryptedArr[1])));
-            String decryptedTitle = decryptWithAES(encryptedArr[2], aesKey, iv);
-            String decryptedContent = decryptWithAES(encryptedArr[3], aesKey, iv);
-            return new PlainMessage(decryptedTitle, decryptedContent);
+            String decryptedContent = decryptWithAES(encryptedArr[2], aesKey, iv);
+            return new PlainMessage(decryptedContent);
         } catch (Exception e) {
             throw new DecryptionException("복호화에 실패하였습니다.", e);
         }

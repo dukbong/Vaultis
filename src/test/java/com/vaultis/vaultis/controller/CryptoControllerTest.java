@@ -1,6 +1,5 @@
 package com.vaultis.vaultis.controller;
 
-import com.vaultis.vaultis.dto.EncryptedMessage;
 import com.vaultis.vaultis.dto.PlainMessage;
 import com.vaultis.vaultis.service.CryptoService;
 import com.vaultis.vaultis.service.KeyFactoryService;

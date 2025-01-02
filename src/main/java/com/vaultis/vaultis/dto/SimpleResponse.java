@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class EncryptedResponse <T> {
-    // 확장성
+public class SimpleResponse<T> {
     T data;
 }
