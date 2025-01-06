@@ -1,9 +1,9 @@
 server:
-  port: 8889
+  port: 0
 
 spring:
   application:
-    name: vaultis
+    name: crypto-service
 
   servlet:
     multipart:
@@ -11,26 +11,14 @@ spring:
       max-file-size: 5MB
       max-request-size: 10MB
 
-  datasource:
-    driver-class-name: org.h2.Driver
-    username: sa
-    password:
-
-  h2:
-    console:
-      path: /h2-console
-      enabled: true
-      settings:
-        web-allow-others: true
-
-  jpa:
-    hibernate:
-      ddl-auto: create
-    properties:
-      hibernate:
-        format_sql: true
-
 logging:
   level:
     org.hibernate.SQL: debug
     org.hibernate.orm.jdbc.bind: trace
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka

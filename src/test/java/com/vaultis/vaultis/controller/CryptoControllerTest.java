@@ -33,7 +33,6 @@ class CryptoControllerTest {
     void testEncryptDataWithRealPublicKeyFile() throws Exception {
         // 1. 테스트 데이터 준비
         PlainMessage request = new PlainMessage();
-        request.setTitle("Test Title");
         request.setContent("Test Content");
 
         // 2. RSA 공개 키 생성 및 파일로 저장

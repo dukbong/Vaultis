@@ -22,7 +22,7 @@ public class CryptoController {
     private final CryptoService cryptoService;
     private final KeyFactoryService keyFactoryService;
 
-    @PostMapping("/encrypt")
+    @PostMapping("/encryption")
     public ResponseEntity<SimpleResponse<EncryptedMessage>> encryptData(@RequestPart("content") String content,
                                                                         @RequestPart("publicKeyFile") MultipartFile publicKeyFile) {
         try {
